@@ -11,14 +11,30 @@ public class To_Roman_Numerals{
       char[] inputNumberChars = args[0].toCharArray();
       int inputSize = inputNumberChars.length;
 
-      if(inputSize >= 4){
+      if(inputSize > 4){
         // only dealing with hundreds
         System.out.print("Your number is too large for this function.");
       }else{
         int position = inputSize;
 
         for (int i=0; inputSize > i ;i++ ) {
-          System.out.print(numbers[position][Character.getNumericValue(inputNumberChars[i])]);
+          if(position < 4){
+            System.out.print(numbers[position][Character.getNumericValue(inputNumberChars[i])]);
+          }
+          else{
+            int thousands = Character.getNumericValue(inputNumberChars[0]);
+            if(thousands <= 3){
+              for(int j=0; j<thousands; j++){
+                System.out.print("M");
+              }
+
+            }
+            else{
+              System.out.print("Your number is too large for this function.");
+              // exit program
+              System.exit(0);
+            }
+          }
           position--;
         }
       }
