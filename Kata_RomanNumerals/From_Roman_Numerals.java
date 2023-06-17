@@ -9,6 +9,9 @@ public class From_Roman_Numerals{
     rValues.put("V", 5);
     rValues.put("X", 10);
     rValues.put("L", 50);
+    rValues.put("C", 100);
+    rValues.put("D", 500);
+    rValues.put("M", 1000);
 
     String[] inputValue = null;
     int inputLength = 0;
