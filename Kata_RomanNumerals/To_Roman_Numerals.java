@@ -7,7 +7,7 @@ public class To_Roman_Numerals{
       {"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"},
       {"","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"}};
 
-      // Should sanitise input with REGEX check but is beyond the scope of this exercise.
+      // Should sanitise input with REGEX check.
       char[] inputNumberChars = args[0].toCharArray();
       int inputSize = inputNumberChars.length;
 
