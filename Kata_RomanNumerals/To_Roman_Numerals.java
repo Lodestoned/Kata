@@ -7,7 +7,11 @@ public class To_Roman_Numerals{
       {"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"},
       {"","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"}};
 
-      // Should sanitise input with REGEX check.
+      if(validateInput(args[0]) == false){
+        System.out.print("Must input a number between 1 and 3999");
+        System.exit(0);
+      }
+     
       char[] inputNumberChars = args[0].toCharArray();
       int inputSize = inputNumberChars.length;
 
@@ -38,6 +42,15 @@ public class To_Roman_Numerals{
           position--;
         }
       }
+
+  }
+
+  private static boolean validateInput(String input){
+    String pattern = "[0-9]{1,4}";
+    if(input.matches(pattern)){
+      return true;
+    }
+    return false;
 
   }
 }
