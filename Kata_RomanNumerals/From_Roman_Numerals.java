@@ -9,20 +9,19 @@ public class From_Roman_Numerals{
     rValues.put("V", 5);
     rValues.put("X", 10);
     rValues.put("L", 50);
-    rValues.put("C", 100);
-    rValues.put("D", 500);
-    rValues.put("M", 1000);
 
     String[] inputValue = null;
     int inputLength = 0;
     int output = 0;
 
-    // Check input #Should pass this through a REGEX check method.
-    if(args.length > 0){
-      inputValue = args[0].split("(?!^)");
-      inputLength = inputValue.length;
+    // Check input
+    if(args.length > 0 && args.length < 2 ){
+      if(validateInput(args[0])){
+        inputValue = args[0].split("(?!^)");
+        inputLength = inputValue.length;
+      }
     }else{
-      // if no Roman Numeral was given
+      // if no Roman Numeral was given or too many values
       System.exit(0);
     }
 
@@ -49,6 +48,15 @@ public class From_Roman_Numerals{
 
     }else{
       System.out.print(rValues.get(inputValue[0]));
+    }
+  }
+
+  private static boolean validateInput(String input){
+    String pattern = "[a-zA-Z]{1,}";
+    if(input.matches(pattern)){
+      return true;
+    }else{
+      return false;
     }
   }
 }
