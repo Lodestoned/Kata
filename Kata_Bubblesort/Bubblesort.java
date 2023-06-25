@@ -2,8 +2,23 @@ public class Bubblesort{
 
   public static void main(String[] args){
     // For Function Test
-    // TODO: make test
+    int[] testArray = {5, 0, 7, 9, 19, 33, 6};
 
+    System.out.print("input array: ");
+    printArray(testArray);
+
+    System.out.println("");
+    System.out.print("After bubblesort: ");
+
+    bubbleSort(testArray);
+    printArray(testArray);
+
+  }
+
+  public static void printArray(int[] array){
+    for (int i : array) {
+      System.out.print(" " + i);
+    }
   }
 
   public static int[] bubbleSort(int[] inputArray){
