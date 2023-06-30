@@ -1,11 +1,18 @@
+import java.io.*;
+import  java.util.*;
+
 public class CountingCodeLines {
 
   public static void main(String[] args){
-    //TODO: check file is valid, if valid open file and check each line adding lines with code to counter. output count to screen.
+    /// TODO: make regex check for code line in checkLineForCode()
     if(validateFileType(args[0])){
-      System.out.print("it worked");
+      try{
+        System.out.println(countCodeLines(args[0]));
+      }
+      catch(IOException exception) {
+        System.out.println(exception);
+      }
     }
-
   }
 
   private static boolean validateFileType(String filename){
@@ -17,6 +24,26 @@ public class CountingCodeLines {
     }
     // else
     return false;
+  }
+
+  private static int countCodeLines(String filePath) throws IOException {
+
+    File inputFile = new File(filePath);
+    int linesOfCode = 0;
+
+    if(!inputFile.exists()){
+      System.out.println("File not found");
+    }else{
+      Scanner in = new Scanner(inputFile);
+
+      while(in.hasNext()){
+        if(checkLineForCode(in.nextLine())){
+          linesOfCode++;
+        }
+      }
+    }
+
+    return linesOfCode;
   }
 
   private static boolean checkLineForCode(String lineFromFile){
