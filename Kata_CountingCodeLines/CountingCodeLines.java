@@ -47,6 +47,11 @@ public class CountingCodeLines {
   }
 
   private static boolean checkLineForCode(String lineFromFile){
+    /// could merge this function with validateFileType()
+    String pattern = "";
+    if(lineFromFile.matches(pattern)){
+      return true;
+    }
     //TODO: ipmlement Regex check
     return false;
   }
