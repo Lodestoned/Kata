@@ -47,12 +47,12 @@ public class CountingCodeLines {
   }
 
   private static boolean checkLineForCode(String lineFromFile){
-    /// could merge this function with validateFileType()
+    /// TODO: add regex check.
+    // this temporary pattern counts all blank spaces, which is not what we are after.
     String pattern = "";
     if(lineFromFile.matches(pattern)){
       return true;
     }
-    //TODO: ipmlement Regex check
     return false;
   }
 }
