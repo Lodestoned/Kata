@@ -49,6 +49,7 @@ public class CountingCodeLines {
   private static boolean checkLineForCode(String lineFromFile){
     /// TODO: add regex check.
     // this temporary pattern counts all blank spaces, which is not what we are after.
+    // regex doesn't seem to like matching "/" symbol for some reason. must change aproach for this kata
     String pattern = "";
     if(lineFromFile.matches(pattern)){
       return true;
