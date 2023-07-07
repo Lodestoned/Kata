@@ -4,7 +4,7 @@ import  java.util.*;
 public class CountingCodeLines {
 
   public static void main(String[] args){
-    /// TODO: make regex check for code line in checkLineForCode()
+    
     if(validateFileType(args[0])){
       try{
         System.out.println(countCodeLines(args[0]));
@@ -30,6 +30,8 @@ public class CountingCodeLines {
 
     File inputFile = new File(filePath);
     int linesOfCode = 0;
+    String tempNextLine = "";
+    boolean inCommentBlock = false;
 
     if(!inputFile.exists()){
       System.out.println("File not found");
@@ -37,23 +39,27 @@ public class CountingCodeLines {
       Scanner in = new Scanner(inputFile);
 
       while(in.hasNext()){
-        if(checkLineForCode(in.nextLine())){
+
+        tempNextLine = in.nextLine().trim();
+
+        if(tempNextLine.isEmpty()){
+          continue;
+        }
+        if(tempNextLine.contains("/*")){
+          // start of block comment found
+          inCommentBlock = true;
+        }
+        if(inCommentBlock && tempNextLine.contains("*/")){
+          // end of comment block found
+          inCommentBlock = false;
+          continue;
+        }
+        if(!tempNextLine.startsWith("//") && !inCommentBlock){
           linesOfCode++;
         }
       }
     }
 
     return linesOfCode;
-  }
-
-  private static boolean checkLineForCode(String lineFromFile){
-    /// TODO: add regex check.
-    // this temporary pattern counts all blank spaces, which is not what we are after.
-    // regex doesn't seem to like matching "/" symbol for some reason. must change aproach for this kata
-    String pattern = "";
-    if(lineFromFile.matches(pattern)){
-      return true;
-    }
-    return false;
   }
 }
