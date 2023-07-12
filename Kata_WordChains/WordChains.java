@@ -15,14 +15,25 @@ public class WordChains{
 
     if(checkFiletype(args[0])){
       wordList = getCustomDictionary(args[0]);
+      // Collections.sort(wordList);
 
-      /// TODO: make logic to find words in list. and fill connecting words.
-      System.out.println(wordList.size());
+      ///TODO: store and use the word positions
+      findWordPosition(wordList, args[1]);
+      findWordPosition(wordList, args[2]);
+
 
     }else{
       System.out.println("Incorrect Filetype.");
     }
+  }
 
+  private static int findWordPosition(ArrayList dictionary, String inputWord){
+    if(dictionary.contains(inputWord.toLowerCase())){
+      return dictionary.indexOf(inputWord.toLowerCase());
+    }
+
+    System.out.printf("Could not find %s in dictionary.",inputWord);
+    return -1;
   }
 
   private static boolean checkFiletype(String filePath){
