@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.io.*;
 import java.util.Scanner;
 
@@ -15,24 +16,43 @@ public class WordChains{
 
     if(checkFiletype(args[0])){
       wordList = getCustomDictionary(args[0]);
-      // Collections.sort(wordList);
+      Collections.sort(wordList);
 
-      ///TODO: store and use the word positions
-      findWordPosition(wordList, args[1]);
-      findWordPosition(wordList, args[2]);
+      ///TODO: refactor findWordPosition() and move program exit to this code block.
+      int firstIndex = findWordPosition(wordList, args[1]);
+      int goalIndex = findWordPosition(wordList, args[2]);
 
+      printChain(buildChain(wordList, firstIndex, goalIndex));
 
     }else{
-      System.out.println("Incorrect Filetype.");
+      System.out.println("Incorrect Dictionary Filetype.");
     }
   }
 
+  private static void printChain(ArrayList<String> wordChain){
+    for (String word : wordChain) {
+      System.out.println(word);
+    }
+  }
+
+
+  private static ArrayList<String> buildChain(ArrayList<String> dictionary, int startPos, int goalPos){
+    ArrayList<String> wordChain = new ArrayList<String>();
+
+    /// TODO: build logic.
+
+    return wordChain;
+  }
+
+/// This function is doing two things. TODO: refactor out the program exit component.
   private static int findWordPosition(ArrayList dictionary, String inputWord){
     if(dictionary.contains(inputWord.toLowerCase())){
       return dictionary.indexOf(inputWord.toLowerCase());
     }
 
     System.out.printf("Could not find %s in dictionary.",inputWord);
+    System.exit(0);
+    /// Required return statement for compiler.
     return -1;
   }
 
