@@ -17,16 +17,23 @@ public class WordChains{
     if(checkFiletype(args[0])){
       wordList = getCustomDictionary(args[0]);
       Collections.sort(wordList);
-
-      ///TODO: refactor findWordPosition() and move program exit to this code block.
-      int firstIndex = findWordPosition(wordList, args[1]);
-      int goalIndex = findWordPosition(wordList, args[2]);
-
-      printChain(buildChain(wordList, firstIndex, goalIndex));
-
     }else{
       System.out.println("Incorrect Dictionary Filetype.");
     }
+
+    int firstIndex = findWordPosition(wordList, args[1]);
+    if(firstIndex == -1){
+      System.out.printf("Could not find %s in dictionary provided.",args[1]);
+      System.exit(0);
+    }
+
+    int goalIndex = findWordPosition(wordList, args[2]);
+    if(goalIndex == -1){
+      System.out.printf("Could not find %s in dictionary provided.",args[2]);
+      System.exit(0);
+    }
+
+    printChain(buildChain(wordList, firstIndex, goalIndex));
   }
 
   private static void printChain(ArrayList<String> wordChain){
@@ -39,20 +46,23 @@ public class WordChains{
   private static ArrayList<String> buildChain(ArrayList<String> dictionary, int startPos, int goalPos){
     ArrayList<String> wordChain = new ArrayList<String>();
 
+    wordChain.add(dictionary.get(startPos));
+
     /// TODO: build logic.
 
     return wordChain;
   }
 
-/// This function is doing two things. TODO: refactor out the program exit component.
+  private static int findNextWordPos(ArrayList<String> dictionary, int currentPos, int goalPos){
+
+
+    return 0; // temp return value
+  }
+
   private static int findWordPosition(ArrayList dictionary, String inputWord){
     if(dictionary.contains(inputWord.toLowerCase())){
       return dictionary.indexOf(inputWord.toLowerCase());
     }
-
-    System.out.printf("Could not find %s in dictionary.",inputWord);
-    System.exit(0);
-    /// Required return statement for compiler.
     return -1;
   }
 
