@@ -47,6 +47,7 @@ public class WordChains{
     ArrayList<String> wordChain = new ArrayList<String>();
 
     wordChain.add(dictionary.get(startPos));
+    findNextWordPos(dictionary, startPos, goalPos);
 
     /// TODO: build logic.
 
@@ -54,6 +55,21 @@ public class WordChains{
   }
 
   private static int findNextWordPos(ArrayList<String> dictionary, int currentPos, int goalPos){
+
+    String dummyWord = "";
+    char dummyWordChangeableChar = '@';
+    char goalWordChar = dictionary.get(goalPos).charAt(0);
+
+/// make sure I am not modifying value in Dictionary
+    dummyWord = dictionary.get(currentPos);
+
+    dummyWordChangeableChar = dummyWord.charAt(0);
+    System.out.println(dummyWordChangeableChar);
+    dummyWordChangeableChar++;
+    System.out.println(dummyWordChangeableChar);
+
+///TODO: check that first letter of current is not the same as goal, or when changed is higher value than goal
+/// if so, then use next letter in word. repeat check
 
 
     return 0; // temp return value
