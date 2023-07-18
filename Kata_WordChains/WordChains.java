@@ -60,13 +60,10 @@ public class WordChains{
     char dummyWordChangeableChar = '@';
     char goalWordChar = dictionary.get(goalPos).charAt(0);
 
-/// make sure I am not modifying value in Dictionary
     dummyWord = dictionary.get(currentPos);
 
     dummyWordChangeableChar = dummyWord.charAt(0);
-    System.out.println(dummyWordChangeableChar);
     dummyWordChangeableChar++;
-    System.out.println(dummyWordChangeableChar);
 
 ///TODO: check that first letter of current is not the same as goal, or when changed is higher value than goal
 /// if so, then use next letter in word. repeat check
