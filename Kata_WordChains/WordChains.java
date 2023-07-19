@@ -49,7 +49,7 @@ public class WordChains{
     wordChain.add(dictionary.get(startPos));
     findNextWordPos(dictionary, startPos, goalPos);
 
-    /// TODO: build logic.
+    /// TODO: build more logic.
 
     return wordChain;
   }
@@ -57,19 +57,30 @@ public class WordChains{
   private static int findNextWordPos(ArrayList<String> dictionary, int currentPos, int goalPos){
 
     String dummyWord = "";
-    char dummyWordChangeableChar = '@';
+    char dummyWordChar = '@';
     char goalWordChar = dictionary.get(goalPos).charAt(0);
 
-    dummyWord = dictionary.get(currentPos);
 
-    dummyWordChangeableChar = dummyWord.charAt(0);
-    dummyWordChangeableChar++;
+    dummyWord = dictionary.get(currentPos);
+    dummyWordChar = dummyWord.charAt(0);
+
+    dummyWordChar++;
+    dummyWord = insertLetter(dummyWord, dummyWordChar, 0);
+
+    /// Visual test
+    System.out.println(dummyWord);
+    System.out.println(dictionary.contains(dummyWord));
+
 
 ///TODO: check that first letter of current is not the same as goal, or when changed is higher value than goal
 /// if so, then use next letter in word. repeat check
 
-
     return 0; // temp return value
+  }
+
+  private static String insertLetter(String word, char letter, int position){
+    /// Caution: possible out of bounds error if position is larger than word
+    return word.substring(0, position) + letter + word.substring(position + 1);
   }
 
   private static int findWordPosition(ArrayList dictionary, String inputWord){
@@ -115,4 +126,4 @@ public class WordChains{
 
     return wordList;
   }
-}
+
