@@ -49,7 +49,7 @@ public class WordChains{
     wordChain.add(dictionary.get(startPos));
     findNextWordPos(dictionary, startPos, goalPos);
 
-    /// TODO: build more logic.
+    /// TODO: build more logic. /// check for matching word here. 
 
     return wordChain;
   }
@@ -57,9 +57,9 @@ public class WordChains{
   private static int findNextWordPos(ArrayList<String> dictionary, int currentPos, int goalPos){
 
     String dummyWord = "";
+    int tempResultPos = 0;
     char dummyWordChar = '@';
     char goalWordChar = dictionary.get(goalPos).charAt(0);
-
 
     dummyWord = dictionary.get(currentPos);
     dummyWordChar = dummyWord.charAt(0);
@@ -67,15 +67,16 @@ public class WordChains{
     dummyWordChar++;
     dummyWord = insertLetter(dummyWord, dummyWordChar, 0);
 
-    /// Visual test
-    System.out.println(dummyWord);
-    System.out.println(dictionary.contains(dummyWord));
+    /// Check if new word is a real word.
+    if(dictionary.contains(dummyWord)){
+      tempResult = dictionary.indexOf(dummyWord);
+    }
 
 
 ///TODO: check that first letter of current is not the same as goal, or when changed is higher value than goal
 /// if so, then use next letter in word. repeat check
-
-    return 0; // temp return value
+/// TODO: check if dummyWord is the same as goal word.
+    return tempResult; // temp return value
   }
 
   private static String insertLetter(String word, char letter, int position){
@@ -126,4 +127,6 @@ public class WordChains{
 
     return wordList;
   }
+}
+
 
