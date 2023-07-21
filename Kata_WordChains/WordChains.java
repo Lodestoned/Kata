@@ -33,7 +33,14 @@ public class WordChains{
       System.exit(0);
     }
 
-    printChain(buildChain(wordList, firstIndex, goalIndex));
+/// Confirm that the "goal word" comes later than start word in dictionary order.
+    if(firstIndex < goalIndex){
+      printChain(buildChain(wordList, firstIndex, goalIndex));
+    }
+    else{
+      /// else, make the goal word our first word
+      printChain(buildChain(wordList, goalIndex, firstIndex));
+    }
   }
 
   private static void printChain(ArrayList<String> wordChain){
@@ -45,11 +52,26 @@ public class WordChains{
 
   private static ArrayList<String> buildChain(ArrayList<String> dictionary, int startPos, int goalPos){
     ArrayList<String> wordChain = new ArrayList<String>();
+    boolean chainComplete = false;
 
     wordChain.add(dictionary.get(startPos));
-    findNextWordPos(dictionary, startPos, goalPos);
 
-    /// TODO: build more logic. /// check for matching word here. 
+    while(!chainComplete){
+
+      startPos = findNextWordPos(dictionary, startPos, goalPos);
+
+      if(startPos == -1){
+        System.out.println("Could not create word chain with provided dictionary.");
+        System.exit(0);
+      }
+
+      wordChain.add(dictionary.get(startPos));
+
+      if(startPos == goalPos){
+        chainComplete = true;
+        continue;
+      }
+    }
 
     return wordChain;
   }
@@ -57,7 +79,7 @@ public class WordChains{
   private static int findNextWordPos(ArrayList<String> dictionary, int currentPos, int goalPos){
 
     String dummyWord = "";
-    int tempResultPos = 0;
+    int tempResult = -1;
     char dummyWordChar = '@';
     char goalWordChar = dictionary.get(goalPos).charAt(0);
 
