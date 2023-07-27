@@ -33,7 +33,7 @@ public class WordChains{
       System.exit(0);
     }
 
-/// Confirm that the "goal word" comes later than start word in dictionary order.
+    /// Confirm that the "goal word" comes later than start word in dictionary order.
     if(firstIndex < goalIndex){
       printChain(buildChain(wordList, firstIndex, goalIndex));
     }
@@ -52,22 +52,23 @@ public class WordChains{
 
   private static ArrayList<String> buildChain(ArrayList<String> dictionary, int startPos, int goalPos){
     ArrayList<String> wordChain = new ArrayList<String>();
+    int currentPos = startPos;
     boolean chainComplete = false;
 
-    wordChain.add(dictionary.get(startPos));
+    wordChain.add(dictionary.get(currentPos));
 
     while(!chainComplete){
 
-      startPos = findNextWordPos(dictionary, startPos, goalPos);
+      currentPos = findNextWordPos(dictionary, currentPos, goalPos);
 
-      if(startPos == -1){
+      if(currentPos == -1){
         System.out.println("Could not create word chain with provided dictionary.");
         System.exit(0);
       }
 
-      wordChain.add(dictionary.get(startPos));
+      wordChain.add(dictionary.get(currentPos));
 
-      if(startPos == goalPos){
+      if(currentPos == goalPos){
         chainComplete = true;
         continue;
       }
@@ -79,7 +80,8 @@ public class WordChains{
   private static int findNextWordPos(ArrayList<String> dictionary, int currentPos, int goalPos){
 
     String dummyWord = "";
-    int tempResult = -1;
+    int result = -1;
+    int charPosition = 0;
     char dummyWordChar = '@';
     char goalWordChar = dictionary.get(goalPos).charAt(0);
 
@@ -87,18 +89,31 @@ public class WordChains{
     dummyWordChar = dummyWord.charAt(0);
 
     dummyWordChar++;
-    dummyWord = insertLetter(dummyWord, dummyWordChar, 0);
+
+    if(dummyWordChar > goalWordChar){
+      // we have gone past the goal word in the alphabet sequence.
+      // change to next letter in the current word.
+      charPosition++;
+    }
+
+    if(charPosition > (dummyWord.length() - 1)){
+      // we have not found a word match and are now out of bounds.
+      System.out.println("Program could not find the right words to build this chain.");
+      System.exit(0);
+    }
+
+    dummyWord = insertLetter(dummyWord, dummyWordChar, charPosition);
 
     /// Check if new word is a real word.
     if(dictionary.contains(dummyWord)){
-      tempResult = dictionary.indexOf(dummyWord);
+      result = dictionary.indexOf(dummyWord);
     }
 
 
 ///TODO: check that first letter of current is not the same as goal, or when changed is higher value than goal
 /// if so, then use next letter in word. repeat check
-/// TODO: check if dummyWord is the same as goal word.
-    return tempResult; // temp return value
+
+    return result; // temp return value
   }
 
   private static String insertLetter(String word, char letter, int position){
@@ -150,5 +165,3 @@ public class WordChains{
     return wordList;
   }
 }
-
-
