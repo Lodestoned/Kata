@@ -9,6 +9,8 @@ public class WordChains{
   public static void main(String[] args){
     ArrayList<String> wordList = null;
 
+    ///TODO: optimize and adjust logic.
+
     if(args.length != 3){
       System.out.println("Missing required parameters: dictionary, starting word, goal word.");
       System.exit(0);
@@ -84,34 +86,41 @@ public class WordChains{
     int charPosition = 0;
     char dummyWordChar = '@';
     char goalWordChar = dictionary.get(goalPos).charAt(0);
+    boolean lookingForWord =  true;
 
     dummyWord = dictionary.get(currentPos);
     dummyWordChar = dummyWord.charAt(0);
 
-    dummyWordChar++;
 
-    if(dummyWordChar > goalWordChar){
-      // we have gone past the goal word in the alphabet sequence.
-      // change to next letter in the current word.
-      charPosition++;
+    while(lookingForWord){
+
+      dummyWordChar++;
+
+      if(dummyWordChar > goalWordChar){
+        // we have gone past the goal word in the alphabet sequence.
+        charPosition++;
+
+        // if a match was found previously, return that match.
+        if(result != -1){
+          return result;
+        }
+      }
+
+      if(charPosition > (dummyWord.length() - 1)){
+        // we have not found a word match and are now out of bounds. Ideally this should never happen.
+        System.out.println("Program could not find the right words to build this chain.");
+        System.exit(0);
+      }
+
+      dummyWord = insertLetter(dummyWord, dummyWordChar, charPosition);
+
+      /// Check if new word is a real word.
+      if(dictionary.contains(dummyWord)){
+        /// Visual Test:
+        System.out.println(dummyWord);
+        result = dictionary.indexOf(dummyWord);
+      }
     }
-
-    if(charPosition > (dummyWord.length() - 1)){
-      // we have not found a word match and are now out of bounds.
-      System.out.println("Program could not find the right words to build this chain.");
-      System.exit(0);
-    }
-
-    dummyWord = insertLetter(dummyWord, dummyWordChar, charPosition);
-
-    /// Check if new word is a real word.
-    if(dictionary.contains(dummyWord)){
-      result = dictionary.indexOf(dummyWord);
-    }
-
-
-///TODO: check that first letter of current is not the same as goal, or when changed is higher value than goal
-/// if so, then use next letter in word. repeat check
 
     return result; // temp return value
   }
@@ -165,3 +174,4 @@ public class WordChains{
     return wordList;
   }
 }
+
